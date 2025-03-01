@@ -1,22 +1,26 @@
-banned = {"THECOCONUTMAN990","OtherPerson"} 
-for i,j in pairs(game.Players:GetPlayers()) do 
-for x,y in pairs(banned) do 
-if string.find(string.lower(j.Name),string.lower(y)) then 
-j:remove() 
-end end end 
-game.Players.PlayerAdded:connect(function(goodguy9618) 
-for x,y in pairs(banned) do 
-if string.find(string.lower(plr.goodguy9618),string.lower(y)) then 
-prl:remove() 
-end end end) 
-local m = Instance.new("Hint") 
-m.Text = "Banning Script Loaded" 
+local banned = {"Johajep"}
+
+-- Function to check and ban players
+local function checkAndBan(player)
+    for _, name in pairs(banned) do
+        if string.find(string.lower(player.Name), string.lower(name)) then
+            player:Kick("You have been banned from this game.")
+            print(player.Name .. " has been banned.")
+            return
+        end
+    end
+end
+
+-- Ban existing players when the script starts
+for _, player in pairs(game.Players:GetPlayers()) do
+    checkAndBan(player)
+end
+
+-- Ban new players who join
+game.Players.PlayerAdded:Connect(checkAndBan)
+
+-- Display a message indicating the script is active
+local m = Instance.new("Message")
+m.Text = "Banning Script Loaded"
 m.Parent = game.Workspace
-
---[[ Place the names of the people you want to be removed in the "banned" table.
-Each name should be contained in quotes, and seperated by a comma.
-
-People's names can be partial, and they don't need to be capitalized.
-This will help if there is, say... xXSomeDudeRuiningSBXx3182980. 
-You could include: "SomeDude", and the person would be removed.
-]]
+task.delay(5, function() m:Destroy() end) -- Removes the message after 5 seconds
